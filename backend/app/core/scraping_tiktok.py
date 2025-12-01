@@ -119,28 +119,6 @@ def run():
                     try:
                         comments = limpiar_texto(page.locator('[data-e2e="comment-count"]'))
                     except: comments = "0"
-
-                    # 5. Shares
-                    try:
-                        shares = limpiar_texto(page.locator('[data-e2e="share-count"]'))
-                    except: shares = "0"
-
-                    # 6. Saves (El más difícil)
-                    try:
-                        # Intento A: Selector oficial (si existe)
-                        saves = page.locator('[data-e2e="undefined"]').first.inner_text()
-                        # Si devuelve texto vacío o texto raro, intentamos B
-                        if not saves or not saves[0].isdigit():
-                             # Intento B: Buscar por el icono de marcador
-                             saves = page.locator('strong[data-e2e="undefined"]').inner_text()
-                    except:
-                        saves = "N/A (Login requerido)"
-
-                    # 7. Tipo (Foto o Video)
-                    # Si hay slides de fotos, es Foto.
-                    es_carrusel = page.locator('.swiper-slide').count() > 0
-                    if es_carrusel:
-                        tipo = "Foto/Carrusel"
                     elif "photo" in page.url: # A veces la URL lo dice
                         tipo = "Foto"
                     else:
